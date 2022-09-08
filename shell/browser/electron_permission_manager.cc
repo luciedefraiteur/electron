@@ -130,6 +130,11 @@ void ElectronPermissionManager::SetDevicePermissionHandler(
   device_permission_handler_ = handler;
 }
 
+void ElectronPermissionManager::SetBluetoothPairingHandler(
+    const BluetoothPairingHandler& handler) {
+  bluetooth_pairing_handler_ = handler;
+}
+
 void ElectronPermissionManager::RequestPermission(
     blink::PermissionType permission,
     content::RenderFrameHost* render_frame_host,

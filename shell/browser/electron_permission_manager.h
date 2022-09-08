@@ -50,11 +50,14 @@ class ElectronPermissionManager : public content::PermissionControllerDelegate {
 
   using DeviceCheckHandler =
       base::RepeatingCallback<bool(const v8::Local<v8::Object>&)>;
+  using BluetoothPairingHandler = base::RepeatingCallback<v8::Local<v8::Object>(
+      const v8::Local<v8::Object>&)>;
 
   // Handler to dispatch permission requests in JS.
   void SetPermissionRequestHandler(const RequestHandler& handler);
   void SetPermissionCheckHandler(const CheckHandler& handler);
   void SetDevicePermissionHandler(const DeviceCheckHandler& handler);
+  void SetBluetoothPairingHandler(const BluetoothPairingHandler& handler);
 
   // content::PermissionControllerDelegate:
   void RequestPermission(blink::PermissionType permission,
@@ -144,6 +147,7 @@ class ElectronPermissionManager : public content::PermissionControllerDelegate {
   RequestHandler request_handler_;
   CheckHandler check_handler_;
   DeviceCheckHandler device_permission_handler_;
+  BluetoothPairingHandler bluetooth_pairing_handler_;
 
   PendingRequestsMap pending_requests_;
 };
