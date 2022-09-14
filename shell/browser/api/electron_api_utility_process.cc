@@ -155,7 +155,7 @@ class PipeReaderBase : public PipeIOBase {
 #endif
       if (had_error) {
         if (!shutting_down_.IsSet()) {
-          LOG(ERROR) << "Connection terminated while reading from pipe";
+          ShutdownReader();
         }
         return 0;
       }
@@ -179,7 +179,6 @@ class PipeReaderBase : public PipeIOBase {
     size_t bytes_read =
         ReadBytes(read_buffer_->data(), read_buffer_->RemainingCapacity());
     if (!bytes_read) {
-      ShutdownReader();
       return;
     }
     read_buffer_->DidRead(bytes_read);
